@@ -37,27 +37,27 @@
   <body ng-app="starter" ng-controller="TodoCtrl" >
   
 	<ion-pane>
-	 <ion-side-menus>
-   <ion-side-menu-content>
-			<ion-header-bar class="bar-dark">
-			  <h1 class="title">DashBoard</h1>
-			  <!-- New Task button-->
-			  <button class="button button-icon" ng-click="newTask()">
-				<i class="icon ion-compose"></i>
-			  </button>
-			</ion-header-bar>
-			<ion-content>
-			  <!-- our list and list items -->
-			  <ion-list>
-				<ion-item ng-repeat="task in tasks">
-				  {{task.title}}
-				</ion-item>
-			  </ion-list>
-			</ion-content>
-		</ion-side-menu-content>
-    <ion-side-menu side="left">
-    </ion-side-menu>
-  </ion-side-menus>
+		 <ion-side-menus>
+			<ion-side-menu-content>
+				<ion-header-bar class="bar-dark">
+				  <h1 class="title">DashBoard</h1>
+				  <!-- New Task button-->
+				  <button class="button button-icon" ng-click="newTask()">
+					<i class="icon ion-compose"></i>
+				  </button>
+				</ion-header-bar>
+				<ion-content>
+				  <!-- our list and list items -->
+				  <ion-list>
+					<ion-item ng-repeat="task in tasks">
+					  {{task.title}}
+					</ion-item>
+				  </ion-list>
+				</ion-content>
+			</ion-side-menu-content>
+		<ion-side-menu side="left">
+		</ion-side-menu>
+	  </ion-side-menus>
 
 		
 		
