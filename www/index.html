@@ -32,66 +32,60 @@
     <!-- your app's js -->
     <script src="js/app.js"></script>
   </head>
-  
-  
-  <body ng-app="starter" ng-controller="TodoCtrl" >
-  
-	<ion-pane>
-		 <ion-side-menus>
-			<ion-side-menu-content>
-				<ion-header-bar class="bar-dark">
-				  <h1 class="title">DashBoard</h1>
-				  <!-- New Task button-->
-				  <button class="button button-icon" ng-click="newTask()">
-					<i class="icon ion-compose"></i>
-				  </button>
-				</ion-header-bar>
-				<ion-content>
-				  <!-- our list and list items -->
-				  <ion-list>
-					<ion-item ng-repeat="task in tasks">
-					  {{task.title}}
-					</ion-item>
-				  </ion-list>
-				</ion-content>
-			</ion-side-menu-content>
-		<ion-side-menu side="left">
-		</ion-side-menu>
-	  </ion-side-menus>
 
-		
-		
-		<script id="new-task.html" type="text/ng-template">
 
-		  <div class="modal">
+  <body ng-app="starter" >
+  <div  ng-controller="AppController" >
 
-			<!-- Modal header bar -->
-			<ion-header-bar class="bar-secondary">
-			  <h1 class="title">New Task</h1>
-			  <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
-			</ion-header-bar>
+    <ion-nav-view></ion-nav-view>
+  </div>
 
-			<!-- Modal content area -->
-			<ion-content>
 
-			  <form ng-submit="createTask(task)">
-				<div class="list">
-				  <label class="item item-input">
-					<input type="text" placeholder="What do you need to do?" ng-model="task.title">
-				  </label>
-				</div>
-				<div class="padding">
-				  <button type="submit" class="button button-block button-positive">Create Task</button>
-				</div>
-			  </form>
+  <script id="app.html" type="text/ng-template">
+    <ion-side-menus>
 
-			</ion-content>
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-dark">
+          <ion-nav-back-button class="button-icon ion-arrow-left-c">
+          </ion-nav-back-button>
+        </ion-nav-bar>
 
-		  </div>
+        <ion-nav-view name="appContent"></ion-nav-view>
+      </ion-side-menu-content>
 
-		</script>
-    </ion-pane>
-	
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar-assertive">
+          <h1 class="title">Menu</h1>
+        </ion-header-bar>
+        <ion-content>
+       <a href="#/app/about">Toilets</a>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+  </script>
+
+
+
+
+  <script id="about.html" type="text/ng-template">
+    <ion-view title="Mi Toilet">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
+          <ion-icon ios="ios-list" md="md-list"></ion-icon>
+        </button>
+      </ion-nav-buttons>
+      <ion-content padding="true">
+        <ion-purchase>{{text}}</ion-purchase>
+      </ion-content>
+    </ion-view>
+  </script>
+
+  <script id="ionCart.html" type="text/ng-template">
+    <div class="list">
+
+      <div class="item" ng-repeat="item in data.items">{{item.label}}</div>
+    </div>
+  </script>
 
   </body>
 </html>

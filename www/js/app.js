@@ -21,38 +21,56 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
-  
+
 
 })
+  .config(function($stateProvider, $urlRouterProvider) {
 
-  .controller('TodoCtrl', function($scope, $ionicModal) {
-  // No need for testing data anymore
-  $scope.tasks = [];
+    $stateProvider
+      .state('app', {
+        url: "/app",
+        abstract: true,
+        templateUrl: "app.html",
 
-  // Create and load the Modal
-  $ionicModal.fromTemplateUrl('new-task.html', function(modal) {
-    $scope.taskModal = modal;
-  }, {
-    scope: $scope,
-    animation: 'slide-in-up'
-  });
+      })
 
-  // Called when the form is submitted
-  $scope.createTask = function(task) {
-    $scope.tasks.push({
-      title: task.title
-    });
-    $scope.taskModal.hide();
-    task.title = "";
-  };
+      .state('app.home', {
+        url: "/home",
+        views: {
+          'appContent' :{
+            templateUrl: "/app/home/home.html",
+            controller : "HomeController"
+          }
+        }
+      })
+      .state('app.about', {
+        url: "/about",
+        views: {
+          'appContent' :{
+            templateUrl: "about.html",
+            controller : "AboutController"
+          }
+        }
+      });
 
-  // Open our new task modal
-  $scope.newTask = function() {
-    $scope.taskModal.show();
-  };
+    $urlRouterProvider.otherwise("/app/home");
+  })
 
-  // Close the new task modal
-  $scope.closeNewTask = function() {
-    $scope.taskModal.hide();
-  };
-})
+  .controller('AppController', function($scope, $ionicSideMenuDelegate) {
+    $scope.toggleLeft = function() {
+      $ionicSideMenuDelegate.toggleLeft();
+    };
+  })
+
+  .controller("HomeController", function($scope) {
+    $scope.text = "this is home";
+  })
+
+  .controller("AboutController", function($scope) {
+
+    $scope.text = "this is about";
+
+  })
+
+
+
