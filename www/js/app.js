@@ -5,26 +5,26 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+  .run(function ($ionicPlatform) {
+    $ionicPlatform.ready(function () {
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 
-      // Don't remove this line unless you know what you are doing. It stops the viewport
-      // from snapping when text inputs are focused. Ionic handles this internally for
-      // a much nicer keyboard experience.
-      cordova.plugins.Keyboard.disableScroll(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-  });
+        // Don't remove this line unless you know what you are doing. It stops the viewport
+        // from snapping when text inputs are focused. Ionic handles this internally for
+        // a much nicer keyboard experience.
+        cordova.plugins.Keyboard.disableScroll(true);
+      }
+      if (window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
 
 
-})
-  .config(function($stateProvider, $urlRouterProvider) {
+  })
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('app', {
@@ -33,22 +33,30 @@ angular.module('starter', ['ionic'])
         templateUrl: "app.html",
 
       })
-
       .state('app.home', {
         url: "/home",
         views: {
-          'appContent' :{
+          'appContent': {
             templateUrl: "/app/home/home.html",
-            controller : "HomeController"
+            controller: "HomeController"
           }
         }
       })
       .state('app.about', {
         url: "/about",
         views: {
-          'appContent' :{
+          'appContent': {
             templateUrl: "about.html",
-            controller : "AboutController"
+            controller: "AboutController"
+          }
+        }
+      })
+      .state('app.toilet', {
+        url: "/toilet",
+        views: {
+          'appContent': {
+            templateUrl: "toilet.html",
+            controller: "ToiletController"
           }
         }
       });
@@ -56,21 +64,77 @@ angular.module('starter', ['ionic'])
     $urlRouterProvider.otherwise("/app/home");
   })
 
-  .controller('AppController', function($scope, $ionicSideMenuDelegate) {
-    $scope.toggleLeft = function() {
+  .controller('AppController', function ($scope, $ionicSideMenuDelegate) {
+    $scope.toggleLeft = function () {
       $ionicSideMenuDelegate.toggleLeft();
     };
-  })
-
-  .controller("HomeController", function($scope) {
-    $scope.text = "this is home";
-  })
-
-  .controller("AboutController", function($scope) {
-
-    $scope.text = "this is about";
 
   })
+
+  .controller("HomeController", function ($scope) {
+    $scope.text = "Welcome to the Mi Toilet";
+  })
+
+  .controller("AboutController", function ($scope) {
+
+    $scope.text = "Version 1.0.0";
+
+  })
+  .controller("ToiletController", function ($scope, $timeout) {
+
+    var status = {
+      occupied: {
+        val: 'Occupied',
+        style: 'assertive'
+      },
+      vacant: {
+        val: 'Vacant',
+        style: 'balanced'
+      }
+    };
+
+    $scope.time = "10.35 a.m";
+
+    $scope.male = status.occupied;
+
+    $scope.female = status.vacant;
+
+    var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "myclientid_" + parseInt(Math.random() * 100, 10));
+
+    //Gets  called if the websocket/mqtt connection gets disconnected for any reason
+    client.onConnectionLost = function (responseObject) {
+      //Depending on your scenario you could implement a reconnect logic here
+      alert("connection lost: " + responseObject.errorMessage);
+    };
+
+    //Gets called whenever you receive a message for your subscriptions
+    client.onMessageArrived = function (message) {
+      //Do something with the push message you received
+      //$('#messages').append('<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>');
+      console.log('msg: ' + message.payloadString)
+    };
+
+    //Connect Options
+    var options = {
+      timeout: 3,
+      //Gets Called if the connection has sucessfully been established
+      onSuccess: function () {
+        alert("Connected");
+      },
+      //Gets Called if the connection could not be established
+      onFailure: function (message) {
+        alert("Connection failed: " + message.errorMessage);
+      }
+    };
+
+    client.connect(options);
+
+    $timeout(function(){
+      client.subscribe('testtopic/#', {qos: 2}); alert('Subscribed');
+
+    }, 2000);
+
+  });
 
 
 
