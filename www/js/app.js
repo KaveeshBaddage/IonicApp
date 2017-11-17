@@ -99,40 +99,42 @@ angular.module('starter', ['ionic'])
 
     $scope.female = status.vacant;
 
-    var client = new Messaging.Client("broker.hivemq.com",8000 , "myclientid_" + parseInt(Math.random() * 100, 10));
 
-    //Gets  called if the websocket/mqtt connection gets disconnected for any reason
-    client.onConnectionLost = function (responseObject) {
-      //Depending on your scenario you could implement a reconnect logic here
-      alert("connection lost: " + responseObject.errorMessage);
-    };
-
-    //Gets called whenever you receive a message for your subscriptions
-    client.onMessageArrived = function (message) {
-      //Do something with the push message you received
-      //$('#messages').append('<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>');
-      console.log('msg: ' + message.payloadString)
-    };
-
-    //Connect Options
-    var options = {
-      timeout: 3,
-      //Gets Called if the connection has sucessfully been established
-      onSuccess: function () {
-        alert("Connected");
-      },
-      //Gets Called if the connection could not be established
-      onFailure: function (message) {
-        alert("Connection failed: " + message.errorMessage);
-      }
-    };
-
-    client.connect(options);
-
-    $timeout(function(){
-      client.subscribe('Test', {qos: 2}); alert('Subscribed');
-
-    }, 2000);
+    //
+    // var client = new Messaging.Client("broker.hivemq.com",8000 , "myclientid_" + parseInt(Math.random() * 100, 10));
+    //
+    // //Gets  called if the websocket/mqtt connection gets disconnected for any reason
+    // client.onConnectionLost = function (responseObject) {
+    //   //Depending on your scenario you could implement a reconnect logic here
+    //   alert("connection lost: " + responseObject.errorMessage);
+    // };
+    //
+    // //Gets called whenever you receive a message for your subscriptions
+    // client.onMessageArrived = function (message) {
+    //   //Do something with the push message you received
+    //   //$('#messages').append('<span>Topic: ' + message.destinationName + '  | ' + message.payloadString + '</span><br/>');
+    //   console.log('msg: ' + message.payloadString)
+    // };
+    //
+    // //Connect Options
+    // var options = {
+    //   timeout: 3,
+    //   //Gets Called if the connection has sucessfully been established
+    //   onSuccess: function () {
+    //     alert("Connected");
+    //   },
+    //   //Gets Called if the connection could not be established
+    //   onFailure: function (message) {
+    //     alert("Connection failed: " + message.errorMessage);
+    //   }
+    // };
+    //
+    // client.connect(options);
+    //
+    // $timeout(function(){
+    //   client.subscribe('Test', {qos: 2}); alert('Subscribed');
+    //
+    // }, 2000);
 
   });
 
