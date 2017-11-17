@@ -11,29 +11,20 @@ angular.module('starter', ['ionic'])
     $ionicPlatform.ready(function () {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
 
-
-      }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
-      }
 
       console.log('Ionic ready');
-      if (navigator.splashscreen) {
-        console.log('Hiding splash screen');
-        // We're done initializing, remove the splash screen
-        //navigator.splashscreen.hide();
-      }
+      // if (navigator.splashscreen) {
+      //   console.log('Hiding splash screen');
+      //   // We're done initializing, remove the splash screen
+      //   //navigator.splashscreen.hide();
+      // }
 
     });
 
 
     $timeout(function() {
-      $state.go('home');
+      $state.go('app.home');
     }, 5000);
   })
   .config(function ($stateProvider, $urlRouterProvider) {
