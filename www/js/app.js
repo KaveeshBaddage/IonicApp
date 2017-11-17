@@ -99,7 +99,7 @@ angular.module('starter', ['ionic'])
 
     $scope.female = status.vacant;
 
-    var client = new Messaging.Client("broker.mqttdashboard.com", 8000, "myclientid_" + parseInt(Math.random() * 100, 10));
+    var client = new Messaging.Client("broker.hivemq.com",8000 , "myclientid_" + parseInt(Math.random() * 100, 10));
 
     //Gets  called if the websocket/mqtt connection gets disconnected for any reason
     client.onConnectionLost = function (responseObject) {
@@ -130,7 +130,7 @@ angular.module('starter', ['ionic'])
     client.connect(options);
 
     $timeout(function(){
-      client.subscribe('testtopic/#', {qos: 2}); alert('Subscribed');
+      client.subscribe('Test', {qos: 2}); alert('Subscribed');
 
     }, 2000);
 
