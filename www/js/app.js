@@ -38,7 +38,7 @@ angular.module('starter', ['ionic'])
         url: "/home",
         views: {
           'appContent': {
-            templateUrl: "/app/home/home.html",
+            templateUrl: "../app/home/home.html",
             controller: "HomeController"
           }
         }
