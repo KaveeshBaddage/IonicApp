@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 
-
+console.log('in run')
   .run(function ($ionicPlatform, $timeout) {
     console.log('in run');
     $ionicPlatform.ready(function () {
