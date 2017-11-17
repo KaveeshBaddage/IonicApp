@@ -23,9 +23,7 @@ console.log('in run')
     });
 
 
-    $timeout(function() {
-      $state.go('app.home');
-    }, 5000);
+
   })
   .config(function ($stateProvider, $urlRouterProvider) {
 
