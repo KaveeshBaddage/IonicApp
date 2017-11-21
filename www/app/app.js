@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'restangular'])
 
 
   .run(function ($ionicPlatform, $timeout) {
@@ -23,9 +23,10 @@ angular.module('starter', ['ionic'])
     });
 
 
-
   })
-  .config(function ($stateProvider, $urlRouterProvider) {
+  .config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
+
+    //RestangularProvider.setBaseUrl('/api/v1');
 
     $stateProvider
       .state('app', {
@@ -81,25 +82,51 @@ angular.module('starter', ['ionic'])
     $scope.text = "Version 1.0.0";
 
   })
-  .controller("ToiletController", function ($scope, $timeout) {
+  .controller("ToiletController", function ($scope, $timeout, Restangular) {
 
-    var status = {
-      occupied: {
-        val: 'Occupied',
-        style: 'assertive'
-      },
-      vacant: {
-        val: 'Vacant',
-        style: 'balanced'
-      }
+
+    var fetchData = function () {
+
+      //RestangularProvider.setBaseUrl('https://api.thingspeak.com');
+      var url = "https://api.thingspeak.com/channels/368421/feeds.json?api_key=925RM8MPD08MRCI2&results=1";
+      var xmlHttp = new XMLHttpRequest();
+      xmlHttp.open("GET", url, false); // false for synchronous request
+      xmlHttp.send(null);
+      var response = xmlHttp.responseText;
+      response = JSON.parse(response);
+      console.log(response);
+
+      var lastUpdate = response.channel && response.channel.updated_at;
+      console.log(lastUpdate);
+      var feed = response.feeds && response.feeds.length > 0 && response.feeds[response.feeds.length - 1];
+
+      console.log(feed.field1);
+
+      var status = {
+        occupied: {
+          val: 'Occupied',
+          style: 'assertive'
+        },
+        vacant: {
+          val: 'Vacant',
+          style: 'balanced'
+        }
+      };
+
+
+      var mens = feed.field1 === "0" ? status.vacant : status.occupied;
+
+      var women = feed.field1 === "0" ? status.vacant : status.occupied;
+
+      $scope.time = lastUpdate;
+
+      $scope.male = mens;
+
+      $scope.female = women;
+      $timeout(fetchData, 16000);
     };
 
-    $scope.time = "10.35 a.m";
-
-    $scope.male = status.occupied;
-
-    $scope.female = status.vacant;
-
+    fetchData();
 
     //
     // var client = new Messaging.Client("broker.hivemq.com",8000 , "myclientid_" + parseInt(Math.random() * 100, 10));
