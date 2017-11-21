@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic', 'restangular'])
+angular.module('starter', ['ionic'])
 
 
   .run(function ($ionicPlatform, $timeout) {
@@ -24,9 +24,7 @@ angular.module('starter', ['ionic', 'restangular'])
 
 
   })
-  .config(function ($stateProvider, $urlRouterProvider, RestangularProvider) {
-
-    //RestangularProvider.setBaseUrl('/api/v1');
+  .config(function ($stateProvider, $urlRouterProvider) {
 
     $stateProvider
       .state('app', {
@@ -82,12 +80,12 @@ angular.module('starter', ['ionic', 'restangular'])
     $scope.text = "Version 1.0.0";
 
   })
-  .controller("ToiletController", function ($scope, $timeout, Restangular) {
+  .controller("ToiletController", function ($scope, $timeout) {
 
 
     var fetchData = function () {
 
-      //RestangularProvider.setBaseUrl('https://api.thingspeak.com');
+
       var url = "https://api.thingspeak.com/channels/368421/feeds.json?api_key=925RM8MPD08MRCI2&results=1";
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", url, false); // false for synchronous request
