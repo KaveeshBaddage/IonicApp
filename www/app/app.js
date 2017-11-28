@@ -21,6 +21,19 @@ angular.module('starter', ['ionic'])
       // }
 
     });
+    //overriding the default “return to the previous view” state
+    $ionicPlatform.registerBackButtonAction(function(event) {
+      if (true) { // your check here
+        $ionicPopup.confirm({
+          title: 'System warning',
+          template: 'are you sure you want to exit?'
+        }).then(function(res) {
+          if (res) {
+            ionic.Platform.exitApp();
+          }
+        })
+      }
+    }, 100);
 
 
   })
@@ -46,7 +59,7 @@ angular.module('starter', ['ionic'])
         url: "/about",
         views: {
           'appContent': {
-            templateUrl: "about.html",
+            templateUrl: "app/about/about.html",
             controller: "AboutController"
           }
         }
@@ -55,7 +68,7 @@ angular.module('starter', ['ionic'])
         url: "/toilet",
         views: {
           'appContent': {
-            templateUrl: "toilet.html",
+            templateUrl: "app/toilets/toilet.html",
             controller: "ToiletController"
           }
         }
@@ -86,7 +99,7 @@ angular.module('starter', ['ionic'])
     var fetchData = function () {
 
 
-      var url = "https://api.thingspeak.com/channels/368421/feeds.json?api_key=925RM8MPD08MRCI2&results=1";
+      var url = "https://api.thingspeak.com/channels/368421/feeds.json?api_key=925RM8MPD08MRCI2 &results=1";
       var xmlHttp = new XMLHttpRequest();
       xmlHttp.open("GET", url, false); // false for synchronous request
       xmlHttp.send(null);
@@ -94,8 +107,9 @@ angular.module('starter', ['ionic'])
       response = JSON.parse(response);
       console.log(response);
 
-      var lastUpdate = response.channel && response.channel.updated_at;
-      console.log(lastUpdate);
+      var lastUpdat = response.channel && response.channel.updated_at;
+      var lastUpdate = new Date(lastUpdat);
+
       var feed = response.feeds && response.feeds.length > 0 && response.feeds[response.feeds.length - 1];
 
       console.log(feed.field1);
@@ -121,7 +135,7 @@ angular.module('starter', ['ionic'])
       $scope.male = mens;
 
       $scope.female = women;
-      $timeout(fetchData, 16000);
+      $timeout(fetchData, 60000);
     };
 
     fetchData();
