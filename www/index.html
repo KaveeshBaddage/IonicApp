@@ -35,6 +35,7 @@
   <!-- your app's js -->
   <script src="app/app.js"></script>
 
+
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.js"></script>
   <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.5.1/restangular.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
@@ -78,58 +79,6 @@
   </ion-side-menus>
 </script>
 
-
-<script id="about.html" type="text/ng-template">
-  <ion-view title="About">
-    <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
-        <ion-icon ios="ios-list" md="md-list"></ion-icon>
-      </button>
-    </ion-nav-buttons>
-    <ion-content padding="true">
-      <ion-purchase>{{text}}</ion-purchase>
-    </ion-content>
-  </ion-view>
-</script>
-
-<script id="toilet.html" type="text/ng-template">
-  <ion-view title="Toilets">
-    <ion-nav-buttons side="left">
-      <button class="button button-icon button-clear ion-navicon" ng-click="toggleLeft()">
-        <ion-icon ios="ios-list" md="md-list"></ion-icon>
-      </button>
-    </ion-nav-buttons>
-    <ion-content padding="true">
-      <div class="card">
-      <div class="item item-divider ion-man">
-        First Floor
-      </div>
-      <div class="item item-text-wrap">
-        <b>Male Toilet</b> <span class="badge badge-{{male.style}}"> {{male.val}}</span>
-      </div>
-        <div class="item item-divider">
-          Last Sync :- <ion-purchase>{{time}}</ion-purchase>
-        </div>
-    </div>
-      <!--<div class="card">
-        <div class="item item-divider">
-          First Floor - Female
-        </div>
-        <div class="item item-text-wrap">
-          Last Sync :- <ion-purchase>{{time}}</ion-purchase>
-          <span class="badge badge-{{female.style}}">{{female.val}}</span>
-        </div>
-      </div>-->
-    </ion-content>
-  </ion-view>
-</script>
-
-<script id="ionCart.html" type="text/ng-template">
-  <div class="list">
-
-    <div class="item" ng-repeat="item in data.items">{{item.label}}</div>
-  </div>
-</script>
 
 </body>
 </html>
